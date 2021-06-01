@@ -1,19 +1,29 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-const Link = styled.a`
+const LinksContainer = styled.div`
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Link = styled.a`
+    display: block;
     width: 180px;
-    line-height: 30px;
+    line-height: 40px;
     text-align: center;
     background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
     border-radius: 5px;
     color: white;
     font-size: 1.5rem;
     font-weight: 500;
+    margin: 10px auto;
 
     &:hover {
         font-weight: 600;
@@ -32,13 +42,26 @@ const ProjectItem = ( {project} ) => {
             <div className="project-info">
                 <h1> { project.title } </h1>
                 <h2> { project.subtitle } </h2>
-                <p> { project.description } </p>
+                {
+                    project.descriptions.map( description => <p> { description } </p> )
+                }
+                
             </div>
             <div className="project-img">
                 <div className="project-img-bg" style={ imgStyle }> </div>
                 <div className="project-img-main">
                     <img src={ project.image } alt={ project.title } />
-                    <Link href={ project.link.href } target="_blank">{ project.link.text }</Link> 
+                    <LinksContainer>
+                    {
+                        project.links.map( 
+                            link => 
+                            <Link 
+                                href={ link.href } 
+                                target="_blank"
+                            >{ link.text }</Link> 
+                        )
+                    }
+                    </LinksContainer>
                 </div>
             </div>
         </div>
